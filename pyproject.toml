@@ -1,0 +1,17 @@
+[project]
+name = "PDF2Mindmap"
+version = "0.1.0"
+dependencies = [
+    "graphviz",
+    "langchain",
+    "langchain-openai",
+    "python-dotenv",
+    "pymupdf",
+    "pymupdf4llm"
+]
+
+[project.scripts]
+summarize = "src.pdf2mindmap.main.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
