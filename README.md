@@ -59,6 +59,8 @@ to turn unstructured lecture material into usable study artifacts.
     OPENAI_API_KEY="YOUR_API_KEY_HERE"
     ```
 
+---
+
 ## Usage
 
 1. Place your lecture PDF in the `resources/` directory and rename it to `lecture.pdf`.
@@ -86,6 +88,8 @@ to turn unstructured lecture material into usable study artifacts.
     - `nodes_edges.json` – structured mindmap data
     - `mindmap/` – rendered mindmap files
 
+---
+
 ## Why I built this
 
 I built this project to deepen my understanding of **LangChain fundamentals** and to explore how
@@ -100,6 +104,8 @@ In the process, I learned how to:
 The project helped me bridge the gap between raw, unstructured study material and
 well-organized learning artifacts such as summaries and mindmaps, while gaining hands-on experience
 with modern AI tooling and document-processing workflows.
+
+---
 
 ## Future Improvements
 
