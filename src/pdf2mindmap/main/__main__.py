@@ -1,3 +1,9 @@
+# Standard library imports
+from pathlib import Path
+
+# Third party imports
+from dotenv import load_dotenv
+
 # Local application imports
 from src.pdf2mindmap.main.lecture_agent import LectureAgent
 from src.pdf2mindmap.main.mindmap_creator import MindMapCreator
@@ -5,12 +11,15 @@ from src.pdf2mindmap.main.mindmap_creator import MindMapCreator
 from src.pdf2mindmap.utils.constants import (
     NODES_EDGES_PATH,
     RESOURCES_DIR,
+    LECTURE_PATH
 )
 from src.pdf2mindmap.utils.pdf_converter import PdfConverter
 
 def main():
+    load_dotenv()
+
     # 1. Convert PDF file and save it in resources
-    pdf_converter = PdfConverter("src/langchain_project/resources/lecture.pdf", RESOURCES_DIR)
+    pdf_converter = PdfConverter(LECTURE_PATH, RESOURCES_DIR)
     pdf_converter.convert()
 
     # 2. Call AI Agent workflow

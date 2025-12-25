@@ -1,10 +1,14 @@
+from pathlib import Path
+
 """This module defines project-level constants."""
 
-RESOURCES_DIR = "src/langchain_project/resources"
-RESOURCES_JSON_DIR = "src/langchain_project/resources/jsons/"
+LECTURE_PATH = Path("src/pdf2mindmap/resources/lecture.pdf")
 
-NODES_EDGES_PATH = "src/langchain_project/resources/nodes_edges.json"
+RESOURCES_DIR = Path("src/pdf2mindmap/resources")
+RESOURCES_JSON_DIR = Path("src/pdf2mindmap/resources/jsons/")
 
-MIND_MAP_OUTPUT_DIR = "src/langchain_project/resources/mindmap"
+SUMMARY_PATH = RESOURCES_DIR / "summary.md"
 
-print(RESOURCES_JSON_DIR + "{slide_id}.json")
+NODES_EDGES_PATH = Path("src/pdf2mindmap/resources/nodes_edges.json")
+
+MIND_MAP_OUTPUT_DIR = Path("src/pdf2mindmap/resources/mindmap")

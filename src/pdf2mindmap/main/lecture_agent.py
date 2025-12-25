@@ -17,6 +17,7 @@ from src.pdf2mindmap.utils.constants import (
     NODES_EDGES_PATH,
     RESOURCES_DIR,
     RESOURCES_JSON_DIR,
+    SUMMARY_PATH
 )
 from src.pdf2mindmap.utils.prompts import (
     EXTRACTOR_PROMPT,
@@ -41,7 +42,7 @@ class LectureAgent():
         #     response_format=ResponseFormat
         #     )
         self.directory = RESOURCES_DIR
-        self.bundles = build_bundles(f"{self.directory}/markdowns", f"{self.directory}/images")
+        self.bundles = build_bundles(self.directory / "markdowns", self.directory / "images")
         load_dotenv()
 
     def single_slide_summary(self):
@@ -70,7 +71,7 @@ class LectureAgent():
 
             all_notes.append(data)
 
-            with open(RESOURCES_JSON_DIR + f"{slide_id}.json", "w", encoding="utf-8") as f:
+            with open(RESOURCES_JSON_DIR / f"{slide_id}.json", "w", encoding="utf-8") as f:
                 json.dump(all_notes, f, ensure_ascii=False, indent=2)
 
     def summarize(self):
@@ -108,12 +109,12 @@ class LectureAgent():
         response = self.model.invoke(messages)
     
         # Save response to markdown file
-        with open(RESOURCES_DIR + "/summary.md", "w", encoding="utf-8") as f:
+        with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
             f.write(response.content)
     
     def summary_to_mind_map(self):
         """Creates mind map nodes and edges that are saved in a json file"""
-        with open(RESOURCES_DIR + "/summary.md", "r") as f:
+        with open(SUMMARY_PATH, "r") as f:
             md_summary = f.read()
         # combine a new prewritten prompt and the summary.md to a message list
         messages = [

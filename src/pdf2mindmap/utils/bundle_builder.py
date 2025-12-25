@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import List, Tuple
 
-def build_bundles(md_dir: str, img_dir: str) -> List[Tuple[str, Path, Path]]:
+def build_bundles(md_dir: Path, img_dir: Path) -> List[Tuple[str, Path, Path]]:
     """
     Pairs page-XYZ.md with page-XYZ.png by same stem.
     Returns list of (slide_id, md_path, img_path) sorted by slide_id.
