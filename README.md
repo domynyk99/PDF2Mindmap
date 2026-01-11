@@ -30,13 +30,21 @@ to turn unstructured lecture material into usable study artifacts.
 #### Prerequisites
 - Python 3.12 or higher
 - An OpenAI-compatible API key (set via environment variable)
-- The following libraries (installed automatically):
-  - `langchain`
-  - `langchain-openai`
-  - `graphviz`
-  - `pymupdf`
-  - `pymupdf4llm`
-  - `python-dotenv`
+
+##### System Dependencies
+- **Graphviz**
+  - Must be installed on the system
+  - The `dot` executable must be available in your `PATH`
+  - Download: https://graphviz.org/download/
+
+##### Python Dependencies
+The following libraries are installed automatically:
+- `langchain`
+- `langchain-openai`
+- `graphviz`
+- `pymupdf`
+- `pymupdf4llm`
+- `python-dotenv`
 
 1. Clone the repository:
 
