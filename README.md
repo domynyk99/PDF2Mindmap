@@ -4,24 +4,29 @@
 **PDF2Mindmap** is a CLI-based tool that automatically transforms **academic lecture PDFs** into  
 **exam-oriented summaries** and **high-level mindmaps**.
 
-The project is specifically designed for **university lectures** and focuses on:
+The project is specifically designed for **university lecture slides** and focuses on:
 - understanding slide-based PDFs,
+- grouping semantically related slides,
 - creating consolidated lecture summaries,
-- and generating structured mindmaps for learning and revision.
+- and generating structured mind maps for learning and revision.
 
-The workflow combines **PDF parsing**, **multimodal LLM prompts**, and **structured post-processing**
-to turn unstructured lecture material into usable study artifacts.
+The workflow combines **PDF parsing**, **semantic clustering**, **multimodal LLM prompts**,
+and **structured post-processing** to turn unstructured lecture material into usable study artifacts.
 
+> **Note:** The current pipeline is primarily optimized for **German lecture slides** and
+> therefore produces **German summaries and mind maps**. Support for additional languages
+> (including English) is planned for a future update.
 ---
 
 ## Features
 - Extract **Markdown text** and **page images** from lecture PDFs
-- Create **slide-level structured summaries** (JSON)
-- Aggregate all slides into a **1–3 page exam-ready Markdown summary**
-- Generate **high-level mindmaps** with:
+- **Semantically group related slides** using embedding-based clustering
+- Create **group-level structured summaries** (JSON)
+- Aggregate all slide groups into a **1–3 page exam-ready Markdown summary**
+- Generate **high-level mind maps** with:
   - a central root topic (lecture title)
   - main branches based on lecture structure
-- Designed for **academic / exam preparation**, not generic PDFs
+- Designed specifically for **academic / exam preparation**, not generic PDFs
 
 ---
 
@@ -43,8 +48,12 @@ The following libraries are installed automatically:
 - `langchain-openai`
 - `graphviz`
 - `pymupdf`
+- `pymupdf-layout`
 - `pymupdf4llm`
 - `python-dotenv`
+- `yfiles_graphs_for_streamlit`
+- `hdbscan`
+- `sentence-transformers`
 
 1. Clone the repository:
 
@@ -85,8 +94,9 @@ The following libraries are installed automatically:
     - Store the extracted files in:
         - `resources/mds/`
         - `resources/images/`
-    - Generate slide-level summaries using an AI agent
-    - Aggregate all slide summaries into a single exam-oriented `summary.md`
+    - Generate embeddings for all slides and cluster semantically related slides
+    - Create group-level summaries using multimodal LLM prompts (text + images)
+    - Aggregate all group summaries into a single exam-oriented `summary.md`
     - Create nodes and edges representing the lecture’s conceptual structure
     - Build a high-level mindmap based on this structure
 
@@ -95,6 +105,12 @@ The following libraries are installed automatically:
     - `summary.md` – final lecture summary
     - `nodes_edges.json` – structured mindmap data
     - `mindmap/` – rendered mindmap files
+
+5. To visualize the mind map using the Streamlit app, run:
+
+  ```bash
+  streamlit run src/pdf2mindmap/main/streamlit_mindmap.py
+  ```
 
 ---
 
@@ -105,6 +121,7 @@ I built this project to deepen my understanding of **LangChain fundamentals** an
 
 In the process, I learned how to:
 - extract and structure content from **lecture PDFs** using Python,
+- apply semantic embeddings and clustering to group related content,
 - combine **textual and visual information** (Markdown + images) for more robust document understanding,
 - design **multi-step LLM pipelines** for summarization and abstraction,
 - and generate **mindmaps** by transforming structured nodes and edges into visual representations.
@@ -117,16 +134,7 @@ with modern AI tooling and document-processing workflows.
 
 ## Future Improvements
 
-- Replace the current static Graphviz-based output with an **interactive GUI** that allows users to
-  create, edit, and delete nodes after the AI has generated the initial mindmap structure.
-  This would enable manual refinement, better personalization, and a more visually appealing result.
-
-- Improve the PDF processing pipeline by **grouping slides into semantic subtopics** before
-  summarization. Instead of processing every slide individually, the system could work on
-  larger, conceptually connected sections of a lecture.
-
-  This approach would:
-  - provide the AI with more meaningful context,
-  - reduce the number of input and output tokens,
-  - improve overall reasoning quality,
-  - and make the pipeline faster and more cost-efficient.
+- Possibly create a GUI where the user can simply drop in a PDF, start the pipeline with a button,
+and see progress indicators (e.g. a progress bar) for a more pleasant user experience.
+- Extend language support beyond German and allow summaries and mind maps to be generated
+  in other languages (e.g. English).
