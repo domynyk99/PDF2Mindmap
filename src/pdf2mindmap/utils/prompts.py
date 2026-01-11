@@ -18,8 +18,8 @@ LANGUAGE RULE (STRICT):
 - ALL output MUST be written in German.
 """
 
-EXTRACTOR_PROMPT = """
-You will receive ONE slide (markdown + optional image).
+SINGLE_SLIDE_EXTRACTOR_PROMPT = """
+You will receive ONE slide (markdown + image).
 Create compact notes for later aggregation across the whole lecture.
 
 LANGUAGE RULE (STRICT):
@@ -29,6 +29,26 @@ LANGUAGE RULE (STRICT):
 Return valid JSON with exactly these keys:
 {
   "slide_id": str,
+  "summary_bullets": [str, ...],          // 3-8 bullets, short, factual
+  "topics": [str, ...],                   // 5-12 short topic labels
+  "connections": [str, ...],              // 0-8 short relations like "A -> B because ..."
+  "uncertainties": [str, ...]             // unclear parts; empty list if none
+}
+
+No extra keys. No markdown.
+"""
+
+MULTIPLE_SLIDE_EXTRACTOR_PROMPT = """
+You will receive MULTIPLE slides (each slide consists of markdown + image).
+Create compact notes for later aggregation across the whole lecture.
+
+LANGUAGE RULE (STRICT):
+- ALL text in the JSON output MUST be written in German.
+- Do not mix languages.
+
+Return valid JSON with exactly these keys:
+{
+  "slide_ids": [str, ...],
   "summary_bullets": [str, ...],          // 3-8 bullets, short, factual
   "topics": [str, ...],                   // 5-12 short topic labels
   "connections": [str, ...],              // 0-8 short relations like "A -> B because ..."

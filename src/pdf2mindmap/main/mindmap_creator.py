@@ -40,8 +40,6 @@ class MindMapCreator():
         if not os.path.exists(directory):
             print(f"Creating a directory in: {directory}")
             os.mkdir(directory)
-        else:
-            print(f"Directory exists {directory}")
 
 if __name__ == "__main__":
     json_path = NODES_EDGES_PATH
