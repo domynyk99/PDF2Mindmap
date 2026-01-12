@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 # Third-party imports
+from tqdm import tqdm
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
-
 
 # Local application imports
 from src.pdf2mindmap.utils.page_grouper import PageGrouper
@@ -44,7 +44,6 @@ class LectureAgent():
 
     def run(self) -> None:
         #self.single_slide_summary() 
-        print("Generating JSON files...\nThis step can take a while")
         self.grouped_slides_summary()
         print("Generating Markdown Summary of your lecture...")
         self.summarize()
@@ -84,7 +83,7 @@ class LectureAgent():
         groups = page_grouper.groups
 
         # 3. For each slide group construct prompt
-        for group, pages_list in groups.items():
+        for group, pages_list in tqdm(groups.items(), desc="Generating JSON summaries"):
             messages = [
                 {"role": "user", "content": [
                 ]}
