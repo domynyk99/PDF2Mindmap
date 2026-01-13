@@ -36,17 +36,10 @@ and **structured post-processing** to turn unstructured lecture material into us
 - Python 3.12 or higher
 - An OpenAI-compatible API key (set via environment variable)
 
-##### System Dependencies
-- **Graphviz**
-  - Must be installed on the system
-  - The `dot` executable must be available in your `PATH`
-  - Download: https://graphviz.org/download/
-
 ##### Python Dependencies
 The following libraries are installed automatically:
 - `langchain`
 - `langchain-openai`
-- `graphviz`
 - `pymupdf`
 - `pymupdf-layout`
 - `pymupdf4llm`
@@ -104,7 +97,6 @@ The following libraries are installed automatically:
 
     - `summary.md` – final lecture summary
     - `nodes_edges.json` – structured mindmap data
-    - `mindmap/` – rendered mindmap files
 
 5. To visualize the mind map using the Streamlit app, run:
 
