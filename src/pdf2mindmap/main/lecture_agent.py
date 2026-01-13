@@ -16,16 +16,17 @@ from src.pdf2mindmap.utils.page_grouper import PageGrouper
 from src.pdf2mindmap.utils.bundle_builder import build_bundles
 from src.pdf2mindmap.utils.constants import (
     NODES_EDGES_PATH,
-    RESOURCES_DIR,
     RESOURCES_JSON_DIR,
-    SUMMARY_PATH
+    SUMMARY_PATH,
+    RESOURCES_MARKDOWNS_DIR,
+    RESOURCES_IMAGES_DIR
 )
 from src.pdf2mindmap.utils.prompts import (
     SINGLE_SLIDE_EXTRACTOR_PROMPT,
     MULTIPLE_SLIDE_EXTRACTOR_PROMPT,
     MINDMAP_PROMPT,
     SUMMARY_PROMPT,
-    SYSTEM_PROMPT,
+    SYSTEM_PROMPT
 )
 
 class LectureAgent():
@@ -38,9 +39,7 @@ class LectureAgent():
     """
     def __init__(self) -> None:
         self.summary_model = init_chat_model("gpt-4.1-mini-2025-04-14", temperature = 0.5)
-        self.directory = RESOURCES_DIR
-        self.bundles = build_bundles(self.directory / "markdowns", self.directory / "images")
-        load_dotenv()
+        self.bundles = build_bundles(RESOURCES_MARKDOWNS_DIR, RESOURCES_IMAGES_DIR)
 
     def run(self) -> None:
         #self.single_slide_summary() 
@@ -72,17 +71,12 @@ class LectureAgent():
         :return: None
         """
 
-        # 1. Reset resources/jsons directory
-        if Path(RESOURCES_JSON_DIR).exists():
-                shutil.rmtree(RESOURCES_JSON_DIR)
-        Path(RESOURCES_JSON_DIR).mkdir(parents=True, exist_ok=True)
-
-        # 2. Use PageGrouper to group slides into semantically related pages
+        # 1. Use PageGrouper to group slides into semantically related pages
         page_grouper = PageGrouper()
         page_grouper.run()
         groups = page_grouper.groups
 
-        # 3. For each slide group construct prompt
+        # 2. For each slide group construct prompt
         for group, pages_list in tqdm(groups.items(), desc="Generating JSON summaries"):
             messages = [
                 {"role": "user", "content": [
@@ -106,7 +100,7 @@ class LectureAgent():
             for prompt in image_prompts:
                 messages[0]["content"].append(prompt)
 
-            # 4. Invoke model with created prompt
+            # 3. Invoke model with created prompt
             response = self.summary_model.invoke(messages)
 
             # Write structured response to JSON files in resources/jsons
@@ -261,11 +255,6 @@ class LectureAgent():
 
         :return: None
         """
-        
-        # Reset resources/jsons directory
-        if Path(RESOURCES_JSON_DIR).exists():
-                shutil.rmtree(RESOURCES_JSON_DIR)
-        Path(RESOURCES_JSON_DIR).mkdir(parents=True, exist_ok=True)
         
         # Create 
         for slide_id, md_path, img_path in self.bundles:

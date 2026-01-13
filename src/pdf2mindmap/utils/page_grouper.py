@@ -6,11 +6,11 @@ import hdbscan
 from sentence_transformers import SentenceTransformer
 
 # Local application imports
-from src.pdf2mindmap.utils.constants import RESOURCES_DIR
+from src.pdf2mindmap.utils.constants import RESOURCES_MARKDOWNS_DIR
 
 class PageGrouper():
     def __init__(self):
-        self.md_dir_path = RESOURCES_DIR / "markdowns"
+        self.md_dir_path = RESOURCES_MARKDOWNS_DIR
         self.texts = None
         self.contextualized_text = None
         self.embeddings = None

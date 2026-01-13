@@ -4,27 +4,29 @@ from colorama import Fore
 
 # Local application imports
 from src.pdf2mindmap.main.lecture_agent import LectureAgent
-
+from src.pdf2mindmap.utils.pdf_converter import PdfConverter
+from src.pdf2mindmap.utils.directory_reset import directory_reset
 from src.pdf2mindmap.utils.constants import (
-    RESOURCES_DIR,
     LECTURE_PATH,
     STREAMLIT_HINT
 )
-from src.pdf2mindmap.utils.pdf_converter import PdfConverter
 
 def main():
     load_dotenv()
 
-    # 1. Convert PDF file and save it in resources
-    pdf_converter = PdfConverter(LECTURE_PATH, RESOURCES_DIR)
+    # 1. Reset all files and directory for clean start
+    directory_reset()
+
+    # 2. Convert PDF file and save it in resources
+    pdf_converter = PdfConverter(LECTURE_PATH)
     pdf_converter.convert()
 
-    # 2. Call AI Agent workflow
+    # 3. Call AI Agent workflow
     print("Calling the AI workflow...")
     agent = LectureAgent()
     agent.run()
 
-    # 3. Open MindMap in streamlit hint
+    # 4. Open MindMap in streamlit hint
     print(Fore.CYAN + STREAMLIT_HINT)
 
 if __name__ == "__main__":

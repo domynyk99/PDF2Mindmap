@@ -4,14 +4,12 @@ from pathlib import Path
 
 LECTURE_PATH = Path("src/pdf2mindmap/resources/lecture.pdf")
 
-RESOURCES_DIR = Path("src/pdf2mindmap/resources")
 RESOURCES_JSON_DIR = Path("src/pdf2mindmap/resources/jsons/")
+RESOURCES_IMAGES_DIR = Path("src/pdf2mindmap/resources/images/")
+RESOURCES_MARKDOWNS_DIR = Path("src/pdf2mindmap/resources/markdowns/")
 
-SUMMARY_PATH = RESOURCES_DIR / "summary.md"
-
+SUMMARY_PATH = Path("src/pdf2mindmap/resources/summary.md")
 NODES_EDGES_PATH = Path("src/pdf2mindmap/resources/nodes_edges.json")
-
-MIND_MAP_OUTPUT_DIR = Path("src/pdf2mindmap/resources/mindmap")
 
 STREAMLIT_HINT = (
     "\nThe mind map has been generated successfully.\n"
