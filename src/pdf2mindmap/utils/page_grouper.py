@@ -54,7 +54,7 @@ class PageGrouper():
             file_path = os.path.join(self.md_dir_path, file_name)
             page_number = file_name[5:7]
             first_lines = ""
-            with open(file_path) as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 for _ in range(lines_to_consider):
                     try:
                         first_lines += next(f)
