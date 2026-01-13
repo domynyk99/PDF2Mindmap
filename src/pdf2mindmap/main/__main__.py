@@ -4,10 +4,8 @@ from colorama import Fore
 
 # Local application imports
 from src.pdf2mindmap.main.lecture_agent import LectureAgent
-from src.pdf2mindmap.main.mindmap_creator import MindMapCreator
 
 from src.pdf2mindmap.utils.constants import (
-    NODES_EDGES_PATH,
     RESOURCES_DIR,
     LECTURE_PATH,
     STREAMLIT_HINT
@@ -26,10 +24,7 @@ def main():
     agent = LectureAgent()
     agent.run()
 
-    # 3. Call Mindmap creator 
-    print("Creating the mindmap...")
-    m_map_creator = MindMapCreator(NODES_EDGES_PATH)
-    m_map_creator.create_mind_map()
+    # 3. Open MindMap in streamlit hint
     print(Fore.CYAN + STREAMLIT_HINT)
 
 if __name__ == "__main__":
