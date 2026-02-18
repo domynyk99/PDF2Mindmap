@@ -130,3 +130,5 @@ with modern AI tooling and document-processing workflows.
 and see progress indicators (e.g. a progress bar) for a more pleasant user experience.
 - Extend language support beyond German and allow summaries and mind maps to be generated
   in other languages (e.g. English).
+- Add the functionality to remove certain slides before the summarization process begins, to ensure
+  that the AI workflow does not take unnecessary slides into account.
