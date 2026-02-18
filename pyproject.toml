@@ -10,7 +10,8 @@ dependencies = [
     "pymupdf4llm",
     "yfiles_graphs_for_streamlit",
     "hdbscan",
-    "sentence-transformers"
+    "sentence-transformers",
+    "colorama"
 ]
 
 [project.scripts]
